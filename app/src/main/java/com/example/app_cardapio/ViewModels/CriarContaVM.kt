@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.app_cardapio.Models.User
 //import com.google.firebase.auth.FirebaseAuth
 
-class CriarContaVM(private val context: Context) {
+class CriarContaVM(private val context: Context) : ViewModel() {
 //    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun inputValido(
