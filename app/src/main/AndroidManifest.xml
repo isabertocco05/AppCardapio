@@ -13,17 +13,20 @@
         android:theme="@style/Theme.AppCardapio"
         tools:targetApi="31">
         <activity
-            android:name=".Models.CriarConta"
+            android:name=".Views.CriarContaView"
             android:exported="false" />
         <activity
-            android:name=".Models.Login"
-            android:exported="true">
+            android:name=".Views.LoginView"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Models.CriarConta"
+            android:exported="false" />
     </application>
 
 </manifest>

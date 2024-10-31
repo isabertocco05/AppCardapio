@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rootLayout"
-    tools:context=".criar_conta">
+    tools:context=".Views.CriarContaView">
+
     <TextView
         android:id="@+id/textViewCrieSuaConta"
         android:layout_width="wrap_content"
@@ -131,3 +132,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
