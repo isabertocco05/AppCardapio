@@ -29,25 +29,4 @@ data class User(
         return senha == senhaConfirm
     }
 
-
-//    // Método para criar o usuário no Firebase
-//    fun createUser(firebaseAuth: FirebaseAuth, onComplete: (Boolean, String?) -> Unit) {
-//        firebaseAuth.createUserWithEmailAndPassword(email, senha)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    // Armazenar dados adicionais no Firebase Realtime Database
-//                    val userId = firebaseAuth.currentUser?.uid
-//                    val database = FirebaseDatabase.getInstance().getReference("users").child(userId!!)
-//                    database.setValue(this).addOnCompleteListener { dbTask ->
-//                        if (dbTask.isSuccessful) {
-//                            onComplete(true, null) // Usuário criado com sucesso
-//                        } else {
-//                            onComplete(false, dbTask.exception?.message) // Erro ao armazenar dados
-//                        }
-//                    }
-//                } else {
-//                    onComplete(false, task.exception?.message) // Erro ao criar usuário
-//                }
-//            }
-//    }
 }
