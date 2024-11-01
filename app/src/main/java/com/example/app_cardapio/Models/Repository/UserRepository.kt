@@ -1,4 +1,4 @@
-package com.example.app_cardapio.Repository
+package com.example.app_cardapio.Models.Repository
 
 import com.example.app_cardapio.Models.User
 import com.google.firebase.auth.FirebaseAuth

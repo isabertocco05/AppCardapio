@@ -1,7 +1,7 @@
 package com.example.app_cardapio.ViewModels
 
 import android.content.Context
-import com.example.app_cardapio.Repository.UserRepository
+import com.example.app_cardapio.Models.Repository.UserRepository
 import com.example.app_cardapio.Models.User
 import com.google.firebase.auth.FirebaseAuth
 
