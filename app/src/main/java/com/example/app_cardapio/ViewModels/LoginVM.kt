@@ -11,4 +11,7 @@ class LoginVM (private val context: Context) {
     fun authenticateUser(user: User, onResult: (String?) -> Unit) {
         userRepository.autenticar(user, onResult)
     }
+
+
+
 }
