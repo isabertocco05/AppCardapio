@@ -9,7 +9,7 @@ class LoginVM : ViewModel() {
     private val userRepository = UserRepository()
 
     fun authenticateUser(email: String, senha: String, onResult: (String?) -> Unit) {
-        userRepository.autenticar(email, senha, onResult)
+//        userRepository.autenticar(email, senha, onResult)
     }
 
 

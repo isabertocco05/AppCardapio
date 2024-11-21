@@ -1,58 +1,42 @@
 package com.example.app_cardapio.viewModel
 
-import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.app_cardapio.Models.User
-//import com.google.firebase.auth.FirebaseAuth
+import com.example.app_cardapio.Models.Repository.UserRepository
 
-class CriarContaVM(private val context: Context) : ViewModel() {
-//    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+class CriarContaVM : ViewModel() {
 
-    fun inputValido(
-        nomeUsuario: String,
-        nomeCompleto: String,
-        email: String,
-        senha: String,
-        confirmaSenha: String,
-        onResult: (String?) -> Unit
-    ){
-        if (nomeUsuario.isEmpty() || nomeCompleto.isEmpty() || email.isEmpty() || senha.isEmpty() || confirmaSenha.isEmpty()) {
-            onResult("Todos os campos devem ser preenchidos.")
-            return
-        }
+    private val userRepository = UserRepository()
 
-        val user = User(nomeUsuario, nomeCompleto, email, senha, confirmaSenha)
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
-        if (!user.verificaNome(nomeUsuario)) {
-            onResult("O nome de usuário deve conter letras diferentes e não pode ser apenas números.")
-            return
-        }
-        if (!user.verificaNome(nomeCompleto)) {
-            onResult("O nome completo deve conter letras diferentes e não pode ser números.")
-            return
-        }
-        if (!user.emailValido()) {
-            onResult("Email inválido.")
-            return
-        }
-        if (!user.senhaValida()) {
-            onResult("A senha deve ter pelo menos 8 dígitos e conter, pelo menos, uma letra, um número e um caractere especial.")
-            return
-        }
-        if (!user.verificaConfirmacao(senha, confirmaSenha)) {
-            onResult("As senhas não são iguais.")
-            return
-        }
+    private val _success = MutableLiveData<Boolean>()
+    val success: LiveData<Boolean> get() = _success
 
-//        // Criar o usuário no Firebase
-//        user.createUser(firebaseAuth) { success, errorMessage ->
-//            if (success) {
-//                onResult(null) // Usuário criado com sucesso
-//            } else {
-//                onResult(errorMessage) // Mensagem de erro
-//            }
-//        }
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> get() = _errorMessage
 
+    fun validarSenhas(senha: String, confirmaSenha: String): Boolean {
+        return senha == confirmaSenha
     }
 
+    fun criarConta(user: User) {
+        _isLoading.value = true
+        _errorMessage.value = null
+        if (validarSenhas(user.senha, user.confirmaSenha)) {
+            userRepository.registerUser(user) { isSuccessful, message ->
+                _isLoading.value = false
+                if (isSuccessful) {
+                    _success.value = true
+                } else {
+                    _errorMessage.value = message
+                    _success.value = false
+                }
+
+            }
+        }
+    }
 }

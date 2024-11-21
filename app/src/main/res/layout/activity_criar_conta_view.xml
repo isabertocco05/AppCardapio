@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewCrieSuaConta">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/usuario"
+            android:id="@+id/nomeUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -52,7 +52,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nome_comp"
+            android:id="@+id/nomeCompleto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nome_completo">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/seu_email"
+            android:id="@+id/seuEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/senha_usuario">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirmacao_senha"
+            android:id="@+id/confirmacaoSenha"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

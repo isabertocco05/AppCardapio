@@ -25,8 +25,10 @@ data class User(
         return hasLetters && hasUniqueCharacters && hasOnlyLettersAndSpaces && nome.isNotBlank()
     }
 
-    fun verificaConfirmacao(senha: String, senhaConfirm: String): Boolean {
-        return senha == senhaConfirm
+    fun validarSenhas(senha: String, confirmaSenha: String): Boolean {
+        return senha == confirmaSenha
     }
+
+
 
 }
