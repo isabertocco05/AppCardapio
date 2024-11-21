@@ -94,7 +94,7 @@
         app:layout_constraintTop_toBottomOf="@+id/senha_usuario" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/recSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Esqueci minha senha"

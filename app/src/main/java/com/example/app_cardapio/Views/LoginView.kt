@@ -34,11 +34,12 @@ class LoginView : AppCompatActivity() {
             insets
         }
 
-
         binding.cadastrar.setOnClickListener {
-//            navigateTo(this, CriarContaView::class.java)
-            val intent = Intent(this, CriarContaView::class.java)
-            startActivity(intent)
+            navigateTo(this, CriarContaView::class.java)
+        }
+
+        binding.recSenha.setOnClickListener{
+            navigateTo(this, RecuperaSenhaView::class.java)
         }
     }
 
