@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.app_cardapio.R
-import com.example.app_cardapio.ViewModels.CriarContaVM
+import com.example.app_cardapio.viewModel.CriarContaVM
 import com.example.app_cardapio.databinding.ActivityCriarContaViewBinding
 
 class CriarContaView : AppCompatActivity() {

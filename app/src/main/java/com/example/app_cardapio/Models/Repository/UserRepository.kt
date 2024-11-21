@@ -4,9 +4,9 @@ import com.example.app_cardapio.Models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
-class UserRepository{
-    private val firebaseAuth: FirebaseAuth,
-    private val database: FirebaseDatabase,
+class UserRepository {
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val autentica: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun createUser(user: User, onComplete: (Boolean, String?) -> Unit) {
@@ -28,22 +28,19 @@ class UserRepository{
             }
     }
 
-    fun autenticar (user: User, onResult: (String?) -> Unit){
-        if (user.email.isEmpty() || user.senha.isEmpty() ){
+    fun autenticar(email: String, senha: String, onResult: (String?) -> Unit) {
+        if (email.isEmpty() || senha.isEmpty()) {
             onResult("Todos os campos devem estar preenchidos")
             return
         }
+        // API do Firebase
+        firebaseAuth.signInWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onResult(null) // Autenticação bem-sucedida
+                } else {
+                    onResult("Email ou senha incorretos.")
+                }
+            }
     }
-    // api do firebase
-//    auth.signInWithEmailAndPassword(user.email, user.senha)
-//        .addOnCompleteListener { task ->
-//        if (task.isSuccessful) {
-//            onResult(null) // Autenticação bem-sucedida
-//        } else {
-//            onResult("Email ou senha incorretos.")
-//        }
-//    }
-
-
-
 }

@@ -1,4 +1,4 @@
-package com.example.app_cardapio.ViewModels
+package com.example.app_cardapio.viewModel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
