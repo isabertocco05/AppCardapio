@@ -1,4 +1,4 @@
-//package com.example.app_cardapio.Views
+package com.example.app_cardapio.Views
 
 import android.os.Bundle
 import android.util.Log
@@ -15,19 +15,17 @@ import com.example.app_cardapio.databinding.ActivityCriarContaViewBinding
 import com.example.app_cardapio.navigateTo
 
 
-// Definindo a classe da Activity que representa a tela de criação de conta
-// class CriarContaView : AppCompatActivity() {
+class CriarContaView : AppCompatActivity() {
+    private lateinit var binding: ActivityCriarContaViewBinding
+    private lateinit var viewModel: CriarContaVM
 
-//     // Declaração das variáveis para o binding e o ViewModel
-//     private lateinit var binding: ActivityCriarContaViewBinding
-//     private lateinit var viewModel: CriarContaVM
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         binding = ActivityCriarContaViewBinding.inflate(layoutInflater)
         setContentView(binding.root) // Configuração correta do layout com ViewBinding
 
-//         // Inicializa o binding, que conecta a Activity com o layout XML
-//         binding = ActivityCriarContaViewBinding.inflate(layoutInflater)
-//         setContentView(binding.root)
+        viewModel = ViewModelProvider(this).get(CriarContaVM::class.java)
 
         enableEdgeToEdge()
 
