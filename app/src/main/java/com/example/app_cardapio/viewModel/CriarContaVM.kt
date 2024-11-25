@@ -3,40 +3,52 @@ package com.example.app_cardapio.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.app_cardapio.Models.User
 import com.example.app_cardapio.Models.Repository.UserRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-class CriarContaVM : ViewModel() {
-
+class CriarContaVM() : ViewModel() {
+    private val _statusCadastro = MutableLiveData<String>()
+    val statusCadastro: LiveData<String> = _statusCadastro
     private val userRepository = UserRepository()
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> get() = _isLoading
+    val usuario = FirebaseAuth.getInstance().currentUser
+    val uid = usuario?.uid ?: ""
 
-    private val _success = MutableLiveData<Boolean>()
-    val success: LiveData<Boolean> get() = _success
-
-    private val _errorMessage = MutableLiveData<String?>()
-    val errorMessage: LiveData<String?> get() = _errorMessage
 
     fun validarSenhas(senha: String, confirmaSenha: String): Boolean {
         return senha == confirmaSenha
     }
+    fun cadastrarUsuario(nomeUsuario: String, nomeCompleto: String, email: String, senha: String) {
 
-    fun criarConta(user: User) {
-        _isLoading.value = true
-        _errorMessage.value = null
-        if (validarSenhas(user.senha, user.confirmaSenha)) {
-            userRepository.registerUser(user) { isSuccessful, message ->
-                _isLoading.value = false
-                if (isSuccessful) {
-                    _success.value = true
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, senha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = hashMapOf(
+                        "nome_usuario" to nomeUsuario,
+                        "nome_completo" to nomeCompleto,
+                        "email" to email
+                    )
+
+                    val db = FirebaseFirestore.getInstance()
+
+                    db.collection("usuarios")
+                        .document("cadastro_usuarios")
+                        .collection("cadastros")
+                        .document(nomeCompleto)
+                        .set(user)
+                        .addOnSuccessListener { documentReference ->
+                            _statusCadastro.postValue("Cadastro realizado com sucesso!")
+                        }
+                        .addOnFailureListener { e ->
+                            _statusCadastro.postValue("Erro ao cadastrar: ${e.message}")
+                        }
+                    _statusCadastro.postValue("Usuário cadastrado com sucesso!")
                 } else {
-                    _errorMessage.value = message
-                    _success.value = false
+                    _statusCadastro.postValue("Erro ao criar usuário")
                 }
-
             }
-        }
     }
+
+
 }
