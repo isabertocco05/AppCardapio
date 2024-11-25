@@ -1,45 +1,34 @@
 package com.example.app_cardapio.Models.Repository
 
-import android.util.Log
+import com.example.app_cardapio.Models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UserRepository {
-
     private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
-    //  autenticação (login)
-    fun authenticateUser(email: String, senha: String, onResult: (Boolean, String?) -> Unit) {
-        auth.signInWithEmailAndPassword(email, senha)
+    fun registerUser(user: User, onResult: (Boolean, String?) -> Unit) {
+
+        auth.createUserWithEmailAndPassword(user.email, user.senha)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("UserRepository", "Autenticação bem-sucedida!")
-                    onResult(true, null)
+                    val userId = auth.currentUser?.uid ?: ""
+                    val userData = mapOf(
+                        "nomeUsuario" to user.nomeUsuario,
+                        "nomeCompleto" to user.nomeCompleto,
+                        "email" to user.email
+                    )
+                    firestore.collection("usuarios").document(userId).set(userData)
+                        .addOnSuccessListener {
+                            onResult(true, null)
+                        }
+                        .addOnFailureListener { e ->
+                            onResult(false, "Erro ao salvar dados: ${e.message}")
+                        }
                 } else {
-                    val errorMessage = task.exception?.message ?: "Erro desconhecido"
-                    Log.e("UserRepository", "Erro ao autenticar usuário: $errorMessage")
-                    onResult(false, errorMessage)
+                    onResult(false, task.exception?.message)
                 }
             }
-    }
-
-    // Método de registro (cadastro)
-    fun registerUser(email: String, senha: String, onResult: (Boolean, String?) -> Unit) {
-        auth.createUserWithEmailAndPassword(email, senha)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("UserRepository", "Cadastro bem-sucedido!")
-                    onResult(true, null) // Cadastro bem-sucedido
-                } else {
-                    val errorMessage = task.exception?.message ?: "Erro desconhecido"
-                    Log.e("UserRepository", "Erro ao cadastrar usuário: $errorMessage")
-                    onResult(false, errorMessage) // Falha no cadastro
-                }
-            }
-    }
-
-    fun logoutUser() {
-        auth.signOut()
-        Log.d("UserRepository", "Usuário deslogado com sucesso!")
     }
 }
-
