@@ -1,7 +1,6 @@
 package com.example.app_cardapio.Views
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,13 +22,11 @@ class CriarContaView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCriarContaViewBinding.inflate(layoutInflater)
-        setContentView(binding.root) // Configuração correta do layout com ViewBinding
+        setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(CriarContaVM::class.java)
 
         enableEdgeToEdge()
-
-        // Ajuste de padding para systemBars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -52,7 +49,12 @@ class CriarContaView : AppCompatActivity() {
                 confirmaSenha = binding.confirmacaoSenha.text.toString()
             )
             if (viewModel.validarSenhas(user.senha, user.confirmaSenha)) {
-                viewModel.cadastrarUsuario(user.nomeUsuario, user.nomeCompleto, user.email, user.senha)
+                viewModel.cadastrarUsuario(
+                    user.nomeUsuario,
+                    user.nomeCompleto,
+                    user.email,
+                    user.senha
+                )
 
             } else {
                 Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
