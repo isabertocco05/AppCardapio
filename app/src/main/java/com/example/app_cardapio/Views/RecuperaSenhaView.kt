@@ -1,28 +1,48 @@
 package com.example.app_cardapio.Views
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import android.widget.EditText
+import android.widget.Toast
+import android.widget.Button
+import androidx.activity.ComponentActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.example.app_cardapio.R
-import com.example.app_cardapio.databinding.ActivityRecuperaSenhaViewBinding
 
-class RecuperaSenhaView : AppCompatActivity()
-{
-    private lateinit var binding: ActivityRecuperaSenhaViewBinding
+class RecuperaSenhaView : ComponentActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        setContentView(R.layout.activity_recupera_senha_view)
 
-        binding = ActivityRecuperaSenhaViewBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        auth = FirebaseAuth.getInstance()
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val recEmail = findViewById<EditText>(R.id.recEmail)
+        val recSenha = findViewById<EditText>(R.id.recSenha)
+        val recConfirm = findViewById<EditText>(R.id.recConfirm)
+
+
+        val enviaLink = findViewById<Button>(R.id.alteraSenha)
+
+        // Enviar link de redefinição de senha
+        enviaLink.setOnClickListener {
+            val email = recEmail.text.toString()
+
+            if (email.isNotEmpty()) {
+                // Enviar link para o e-mail informado
+                auth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Link de recuperação enviado para o e-mail.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Erro ao enviar link de recuperação.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            } else {
+                Toast.makeText(this, "Por favor, insira um e-mail válido.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

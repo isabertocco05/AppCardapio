@@ -1,7 +1,6 @@
 package com.example.app_cardapio.Models.Repository
 
 import android.util.Log
-import com.example.app_cardapio.Models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -77,6 +76,46 @@ class UserRepository {
                     val errorMessage = task.exception?.message ?: "Erro desconhecido ao criar usuário"
                     Log.e("UserRepository", errorMessage)
                     onFailure(errorMessage)
+                }
+            }
+    }
+
+    // Verificar se o e-mail está registrado
+    fun verificarEmailCadastrado(email: String, onResult: (Boolean, String?) -> Unit) {
+        auth.fetchSignInMethodsForEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val isEmailRegistered = task.result?.signInMethods?.isNotEmpty() ?: false
+                    if (isEmailRegistered) {
+                        onResult(true, null)
+                    } else {
+                        onResult(false, "Este e-mail não está cadastrado.")
+                    }
+                } else {
+                    val errorMessage = task.exception?.message ?: "Erro ao verificar o e-mail"
+                    onResult(false, errorMessage)
+                }
+            }
+    }
+
+    // Alterar a senha
+    fun alterarSenha(email: String, novaSenha: String, onResult: (Boolean, String?) -> Unit) {
+        auth.signInWithEmailAndPassword(email, novaSenha)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val user = auth.currentUser
+                    user?.updatePassword(novaSenha)
+                        ?.addOnCompleteListener { updateTask ->
+                            if (updateTask.isSuccessful) {
+                                onResult(true, "Senha alterada com sucesso!")
+                            } else {
+                                val errorMessage = updateTask.exception?.message ?: "Erro ao alterar a senha"
+                                onResult(false, errorMessage)
+                            }
+                        }
+                } else {
+                    val errorMessage = task.exception?.message ?: "Erro ao autenticar o usuário"
+                    onResult(false, errorMessage)
                 }
             }
     }
