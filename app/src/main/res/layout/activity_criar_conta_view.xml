@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nome_usuario"
+        android:id="@+id/n_usuario"
         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nome_completo"
+        android:id="@+id/n_completo"
         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -48,9 +48,7 @@
         android:hint="Nome Completo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_usuario">
-
-
+        app:layout_constraintTop_toBottomOf="@+id/n_usuario">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nomeCompleto"
             android:layout_width="match_parent"
@@ -68,8 +66,7 @@
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_completo">
-
+        app:layout_constraintTop_toBottomOf="@+id/n_completo">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/seuEmail"
             android:layout_width="match_parent"
