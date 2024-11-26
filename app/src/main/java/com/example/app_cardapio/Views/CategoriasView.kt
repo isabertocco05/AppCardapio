@@ -1,5 +1,6 @@
 package com.example.app_cardapio.Views
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -43,10 +44,13 @@ class CategoriasView : AppCompatActivity() {
 
         categoriaViewModel.categorias.observe(this, Observer { categorias ->
             categoriaAdapter = CategoriaAdapter(categorias) { nomeCategoria ->
-                Toast.makeText(this, "Clicou em: $nomeCategoria", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ItensView::class.java)
+                intent.putExtra("categoria", nomeCategoria)
+                startActivity(intent)
             }
             binding.recyViewCategoria.adapter = categoriaAdapter
         })
+
 
         categoriaViewModel.showCategorias()
     }
