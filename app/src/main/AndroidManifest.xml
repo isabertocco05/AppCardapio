@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AppCardapio"
         tools:targetApi="31">
         <activity
+            android:name=".Views.CategoriasView"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
