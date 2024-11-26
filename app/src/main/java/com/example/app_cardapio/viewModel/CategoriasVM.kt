@@ -20,8 +20,8 @@ class CategoriasVM : ViewModel() {
                 val categoriaList = mutableListOf<Categoria>()
                 for (document in documents) {
                     val nome = document.id
-//                    val imagem = document.getString("imagem_url")
-                    categoriaList.add(Categoria(nome))
+                    val imagem = document.getString("img_categoria")
+                    categoriaList.add(Categoria(nome, imagem))
                 }
                 _categorias.value = categoriaList
             }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityCategoriasViewBinding
@@ -37,7 +38,7 @@ class CategoriasView : AppCompatActivity() {
 
         binding.recyViewCategoria.apply {
             adapter = categoriaAdapter
-            layoutManager = LinearLayoutManager(this@CategoriasView)
+            binding.recyViewCategoria.layoutManager = GridLayoutManager(this@CategoriasView, 2)
         }
 
         categoriaViewModel.categorias.observe(this, Observer { categorias ->
