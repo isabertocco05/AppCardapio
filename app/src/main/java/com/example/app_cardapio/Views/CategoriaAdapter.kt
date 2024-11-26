@@ -26,6 +26,7 @@ class CategoriaAdapter(
 
         Glide.with(holder.itemView.context)
             .load(categoria.imagem)
+            .centerCrop()
 //            .placeholder(R.drawable.placeholder)
 //            .error(R.drawable.error)
             .into(holder.binding.imgCategoria)
