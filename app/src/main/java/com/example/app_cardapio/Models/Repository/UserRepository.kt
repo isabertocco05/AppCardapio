@@ -14,11 +14,9 @@ class UserRepository {
         auth.signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Log.d("UserRepository", "Autenticação bem-sucedida!")
                     onResult(true, null)
                 } else {
                     val errorMessage = task.exception?.message ?: "Erro desconhecido"
-                    Log.e("UserRepository", "Erro ao autenticar usuário: $errorMessage")
                     onResult(false, errorMessage)
                 }
             }
@@ -61,12 +59,10 @@ class UserRepository {
                         firestore.collection("usuarios").document(userId)
                             .set(usuarioData)
                             .addOnSuccessListener {
-                                Log.d("UserRepository", "Dados adicionais salvos com sucesso no Firestore!")
                                 onSuccess()
                             }
                             .addOnFailureListener { e ->
                                 val errorMessage = e.message ?: "Erro desconhecido ao salvar dados"
-                                Log.e("UserRepository", errorMessage)
                                 onFailure(errorMessage)
                             }
                     } else {
@@ -74,7 +70,6 @@ class UserRepository {
                     }
                 } else {
                     val errorMessage = task.exception?.message ?: "Erro desconhecido ao criar usuário"
-                    Log.e("UserRepository", errorMessage)
                     onFailure(errorMessage)
                 }
             }

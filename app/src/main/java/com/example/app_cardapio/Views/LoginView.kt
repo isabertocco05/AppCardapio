@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.example.app_cardapio.R
 import com.example.app_cardapio.viewModel.LoginVM
 import com.example.app_cardapio.databinding.ActivityLoginViewBinding
+import com.example.app_cardapio.navigateTo
 
 class LoginView : AppCompatActivity() {
 
@@ -22,17 +23,15 @@ class LoginView : AppCompatActivity() {
         binding = ActivityLoginViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Observa o estado de autenticação
         viewModel.isAuthenticated.observe(this, Observer { isAuthenticated ->
             if (isAuthenticated) {
                 Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
-                // Navegue para a tela principal
+                navigateTo(this, CategoriasView::class.java)
             } else {
                 Toast.makeText(this, "Login inválido! Verifique suas credenciais.", Toast.LENGTH_SHORT).show()
             }
         })
 
-        // Botão para realizar login
         binding.Login.setOnClickListener {
             val email = binding.email.text.toString()
             val senha = binding.senha.text.toString()
@@ -42,16 +41,12 @@ class LoginView : AppCompatActivity() {
             }
         }
 
-        // muda para a tela de cadastro
         binding.cadastrar.setOnClickListener {
-            val intent = Intent(this, CriarContaView::class.java)
-            startActivity(intent)
+            navigateTo(this, CriarContaView::class.java)
         }
 
-        // muda para tela de rec senha
         binding.recSenha.setOnClickListener {
-            val intent = Intent(this, RecuperaSenhaView::class.java)
-            startActivity(intent)
+            navigateTo(this, RecuperaSenhaView::class.java)
         }
     }
 
