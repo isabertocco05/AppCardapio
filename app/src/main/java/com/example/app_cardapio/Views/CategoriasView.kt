@@ -33,6 +33,7 @@ class CategoriasView : AppCompatActivity() {
             insets
         }
 
+
         categoriaAdapter = CategoriaAdapter(emptyList()) { nomeCategoria ->
             Toast.makeText(this, "Clicou em: $nomeCategoria", Toast.LENGTH_SHORT).show()
         }

@@ -1,5 +1,6 @@
 package com.example.app_cardapio.Views
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,12 +15,14 @@ import com.bumptech.glide.Glide
 import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityDetalhesItemBinding
 import com.example.app_cardapio.viewModel.DetalhesItemVM
+import com.example.app_cardapio.viewModel.ItensVM
 
 
 class DetalhesItemView : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalhesItemBinding
-    private lateinit var itemDetalhesVM: DetalhesItemVM
+    private lateinit var itemAdapter: ItensAdapter
+    private val itemDetalhesVM: ItensVM by viewModels() // Usando o mesmo ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,37 +30,30 @@ class DetalhesItemView : AppCompatActivity() {
         binding = ActivityDetalhesItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        itemDetalhesVM = ViewModelProvider(this).get(DetalhesItemVM::class.java)
+        val categoria = intent.getStringExtra("categoria") ?: return
+        val nomeItem = intent.getStringExtra("nomeItem") ?: return
 
-        val nomeItem = intent.getStringExtra("nomeItem")
-        if (nomeItem != null) {
-            // Recupera os detalhes do item com base no nome
-            itemDetalhesVM.getItemDetalhes(nomeItem)
-            itemDetalhesVM.itemDetalhes.observe(this, Observer { item ->
-                binding.nomeItem.text = item.nome
-                binding.descItem.text = item.descricao
-                binding.valorItem.text = "R$ %.2f".format(item.valor)
+        itemDetalhesVM.carregarDetalhes(categoria, nomeItem)
+
+        itemDetalhesVM.itens.observe(this, Observer { itens ->
+            val itemDetalhado = itens.firstOrNull()  // Como esperamos um único item, pegamos o primeiro
+            if (itemDetalhado != null) {
+                binding.nomeItem.text = itemDetalhado.nome
+                binding.descItem.text = itemDetalhado.descricao
+                binding.valorItem.text = "R$ %.2f".format(itemDetalhado.valor)
 
                 Glide.with(binding.imgItem.context)
-                    .load(item.img_url)
+                    .load(itemDetalhado.img_url)
                     .centerCrop()
                     .into(binding.imgItem)
-
-                // Configura o botão de adicionar ao pedido
-                binding.addItem.setOnClickListener {
-                    // Lógica para adicionar o item ao pedido
-                }
-            })
-        } else {
-            Toast.makeText(this, "Item não encontrado!", Toast.LENGTH_SHORT).show()
-        }
+            }
+        })
     }
 }
 
