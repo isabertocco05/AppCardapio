@@ -9,6 +9,7 @@ class UserRepository {
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
 
+    // Autenticação (Login)
     fun authenticateUser(email: String, senha: String, onResult: (Boolean, String?) -> Unit) {
         auth.signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
@@ -21,6 +22,7 @@ class UserRepository {
             }
     }
 
+    // Registro simples (somente email e senha)
     fun registerUser(email: String, senha: String, onResult: (Boolean, String?) -> Unit) {
         auth.createUserWithEmailAndPassword(email, senha)
             .addOnCompleteListener { task ->
@@ -35,6 +37,7 @@ class UserRepository {
             }
     }
 
+    // Registro com dados adicionais no Firestore
     fun cadastrarUsuario(
         nomeUsuario: String,
         nomeCompleto: String,
@@ -72,6 +75,7 @@ class UserRepository {
             }
     }
 
+    // Verificar se o e-mail está registrado
     fun verificarEmailCadastrado(email: String, onResult: (Boolean, String?) -> Unit) {
         auth.fetchSignInMethodsForEmail(email)
             .addOnCompleteListener { task ->
@@ -89,6 +93,7 @@ class UserRepository {
             }
     }
 
+    // Alterar a senha
     fun alterarSenha(email: String, novaSenha: String, onResult: (Boolean, String?) -> Unit) {
         auth.signInWithEmailAndPassword(email, novaSenha)
             .addOnCompleteListener { task ->
@@ -110,6 +115,7 @@ class UserRepository {
             }
     }
 
+    // Logout
     fun logoutUser() {
         auth.signOut()
         Log.d("UserRepository", "Usuário deslogado com sucesso!")

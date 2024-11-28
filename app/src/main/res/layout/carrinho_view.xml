@@ -44,33 +44,23 @@
         app:layout_constraintTop_toBottomOf="@+id/nameItem"
         android:layout_marginStart="5dp"/>
 
-    <TextView
-        android:id="@+id/valor"
+
+    <CheckBox
+        android:id="@+id/item_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R$ preço"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintEnd_toStartOf="@+id/item_check"
-        app:layout_constraintStart_toEndOf="@+id/nameItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_item"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-<!--    <CheckBox-->
-<!--        android:id="@+id/item_check"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/delete_item"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <ImageButton-->
-<!--        android:id="@+id/delete_item"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="lixeira"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <ImageButton
+        android:id="@+id/delete_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
