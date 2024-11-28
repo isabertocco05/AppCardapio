@@ -1,5 +1,6 @@
 package com.example.app_cardapio.Views
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,7 +30,9 @@ class ItensView : AppCompatActivity() {
     val categoria = intent.getStringExtra("categoria") ?: return
 
     itemAdapter = ItensAdapter(emptyList()) { item ->
-        Toast.makeText(this, "Clicou no item: ${item.nome}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, DetalhesItemView::class.java)
+        intent.putExtra("nomeItem", item.nome)
+        startActivity(intent)
     }
 
     binding.recyViewItens.apply {
@@ -39,7 +42,9 @@ class ItensView : AppCompatActivity() {
 
     itemViewModel.itens.observe(this, Observer { itens ->
         itemAdapter = ItensAdapter(itens) { item ->
-         Toast.makeText(this, "Clicou no item: ${item.nome}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DetalhesItemView::class.java)
+            intent.putExtra("nomeItem", item.nome)
+            startActivity(intent)
         }
         binding.recyViewItens.adapter = itemAdapter
     })

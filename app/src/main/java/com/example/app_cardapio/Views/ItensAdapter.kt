@@ -1,7 +1,9 @@
 package com.example.app_cardapio.Views
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.app_cardapio.Models.Item
@@ -26,7 +28,6 @@ class ItensAdapter (
 
             with(holder.binding) {
                 nomeItem.text = item.nome
-                descItem.text = item.descricao
                 valorItem.text = "R$ %.2f".format(item.valor)
 
                 Glide.with(imgItem.context)
