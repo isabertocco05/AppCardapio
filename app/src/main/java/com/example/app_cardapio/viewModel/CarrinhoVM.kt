@@ -4,51 +4,49 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.app_cardapio.Models.Item
-import com.example.app_cardapio.Models.Repository.CarrinhoRepository
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.app_cardapio.Models.Item
 
 class CarrinhoVM : ViewModel() {
 
-    private val carrinhoRepository = CarrinhoRepository()  // Instanciando o repositório
+    private val firestore = FirebaseFirestore.getInstance()
+
     private val _itensCarrinho = MutableLiveData<List<Item>>()
-    val itensCarrinho: LiveData<List<Item>> get() = _itensCarrinho
+    val itensCarrinho: LiveData<List<Item>> = _itensCarrinho
 
-    init {
-        // Inicializando o carrinho com os dados do repositório
-        atualizarCarrinho()
+    // Função para adicionar um item ao Firestore
+    fun adicionarItemCarrinho(item: Item) {
+        val itemMap = hashMapOf(
+            "nome" to item.nome,
+            "descricao" to item.descricao,
+            "valor" to item.valor,
+            "img_url" to item.img_url
+        )
+
+        firestore.collection("carrinho").add(itemMap)
+            .addOnSuccessListener { documentReference ->
+                Log.d("CarrinhoVM", "Item adicionado com sucesso: ${documentReference.id}")
+            }
+            .addOnFailureListener { e ->
+                Log.w("CarrinhoVM", "Erro ao adicionar item", e)
+            }
     }
 
-    // Função para adicionar um item ao carrinho
-    fun adicionarItemCarrinho(item: Item)
-    {
-
-        Log.d("CarrinhoVM", "Adicionando item ao carrinho: ${item.nome}")
-        val itensAtuais = _itensCarrinho.value?.toMutableList() ?: mutableListOf()
-        itensAtuais.add(item)
-        _itensCarrinho.value = itensAtuais
-        Log.d("CarrinhoVM", "Itens no carrinho após adição: ${_itensCarrinho.value}")
-        carrinhoRepository.adicionarItem(item)
-        atualizarCarrinho()  // Atualiza a lista após adicionar o item
-    }
-
-    // Função privada para atualizar a lista de itens do carrinho
-    private fun atualizarCarrinho() {
-        _itensCarrinho.value = carrinhoRepository.getItensCarrinho()
-    }
-
-    // Função para remover um item do carrinho
-    fun removerItemCarrinho(item: Item) {
-        carrinhoRepository.removerItem(item)
-        atualizarCarrinho()  // Atualiza a lista após remover o item
-    }
-
+    // Função para carregar os itens do carrinho
     fun carregarItensCarrinho() {
-        // Chama o repositório para obter os itens
-        val itens = carrinhoRepository.getItensCarrinho()
+        val carrinhoRef = firestore.collection("carrinho")
 
-        // Atualiza o LiveData com a lista de itens
-        _itensCarrinho.value = itens
+        carrinhoRef.get()
+            .addOnSuccessListener { documents ->
+                val itens = mutableListOf<Item>()
+                for (document in documents) {
+                    val item = document.toObject(Item::class.java)
+                    itens.add(item)
+                }
+                _itensCarrinho.value = itens  // Atualiza a lista observada
+            }
+            .addOnFailureListener { e ->
+                Log.w("CarrinhoVM", "Erro ao carregar itens do carrinho", e)
+            }
     }
-
 }

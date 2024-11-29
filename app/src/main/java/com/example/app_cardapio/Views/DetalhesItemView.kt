@@ -54,7 +54,7 @@ class DetalhesItemView : AppCompatActivity() {
                     .centerCrop()
                     .into(binding.imgItem)
 
-                binding.addItem.setOnClickListener{
+                binding.addItem.setOnClickListener {
                     carrinhoViewModel.adicionarItemCarrinho(itemDetalhado)
                     Toast.makeText(this, "${itemDetalhado.nome} adicionado ao carrinho", Toast.LENGTH_SHORT).show()
                 }
