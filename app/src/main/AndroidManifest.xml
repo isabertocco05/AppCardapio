@@ -13,6 +13,9 @@
         android:theme="@style/Theme.AppCardapio"
         tools:targetApi="31">
         <activity
+            android:name=".Views.CarrinhoView"
+            android:exported="false" />
+        <activity
             android:name=".Views.DetalhesItemView"
             android:exported="false" />
         <activity
