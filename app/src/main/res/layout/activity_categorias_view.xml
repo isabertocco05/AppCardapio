@@ -7,21 +7,6 @@
     android:id="@+id/main"
     tools:context=".Views.CategoriasView">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/pesquisa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Pesquisar" />
-    </com.google.android.material.appbar.AppBarLayout>
-
 <!--    LOGOUT   -->
 <!--    <ImageButton-->
 <!--        android:id="@+id/logout"-->
@@ -33,14 +18,14 @@
 
     <TextView
         android:id="@+id/titulo"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Escolha Os Produtos:"
-        style="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/carrinho"

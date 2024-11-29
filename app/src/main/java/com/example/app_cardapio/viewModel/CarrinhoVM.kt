@@ -20,7 +20,14 @@ class CarrinhoVM : ViewModel() {
     }
 
     // Função para adicionar um item ao carrinho
-    fun adicionarItemCarrinho(item: Item) {
+    fun adicionarItemCarrinho(item: Item)
+    {
+
+        Log.d("CarrinhoVM", "Adicionando item ao carrinho: ${item.nome}")
+        val itensAtuais = _itensCarrinho.value?.toMutableList() ?: mutableListOf()
+        itensAtuais.add(item)
+        _itensCarrinho.value = itensAtuais
+        Log.d("CarrinhoVM", "Itens no carrinho após adição: ${_itensCarrinho.value}")
         carrinhoRepository.adicionarItem(item)
         atualizarCarrinho()  // Atualiza a lista após adicionar o item
     }

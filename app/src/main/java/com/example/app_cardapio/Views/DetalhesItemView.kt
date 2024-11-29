@@ -22,7 +22,7 @@ import com.example.app_cardapio.viewModel.ItensVM
 class DetalhesItemView : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalhesItemBinding
-    private lateinit var carrinhoViewModel: CarrinhoVM
+    private val carrinhoViewModel: CarrinhoVM by viewModels()
     private val itemDetalhesVM: ItensVM by viewModels() // Usando o mesmo ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
