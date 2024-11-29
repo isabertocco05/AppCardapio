@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityDetalhesItemBinding
+import com.example.app_cardapio.viewModel.CarrinhoVM
 import com.example.app_cardapio.viewModel.DetalhesItemVM
 import com.example.app_cardapio.viewModel.ItensVM
 
@@ -21,7 +22,7 @@ import com.example.app_cardapio.viewModel.ItensVM
 class DetalhesItemView : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalhesItemBinding
-    private lateinit var itemAdapter: ItensAdapter
+    private lateinit var carrinhoViewModel: CarrinhoVM
     private val itemDetalhesVM: ItensVM by viewModels() // Usando o mesmo ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +53,16 @@ class DetalhesItemView : AppCompatActivity() {
                     .load(itemDetalhado.img_url)
                     .centerCrop()
                     .into(binding.imgItem)
+
+                binding.addItem.setOnClickListener{
+                    carrinhoViewModel.adicionarItemCarrinho(itemDetalhado)
+                    Toast.makeText(this, "${itemDetalhado.nome} adicionado ao carrinho", Toast.LENGTH_SHORT).show()
+                }
             }
+
         })
+
+
     }
 }
 

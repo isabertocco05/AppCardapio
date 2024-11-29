@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityCategoriasViewBinding
+import com.example.app_cardapio.navigateTo
 import com.example.app_cardapio.viewModel.CategoriasVM
 
 class CategoriasView : AppCompatActivity() {
@@ -50,6 +51,10 @@ class CategoriasView : AppCompatActivity() {
                 startActivity(intent)
             }
             binding.recyViewCategoria.adapter = categoriaAdapter
+
+            binding.carrinho.setOnClickListener{
+                navigateTo(this, CarrinhoView::class.java)
+            }
         })
 
 
