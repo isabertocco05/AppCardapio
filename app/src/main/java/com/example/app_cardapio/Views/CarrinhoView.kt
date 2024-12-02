@@ -33,6 +33,11 @@ class CarrinhoView : AppCompatActivity() {
             carrinhoAdapter.setItensCarrinho(items)
         })
 
+        carrinhoViewModel.totalCarrinho.observe(this, Observer { total ->
+            binding.total.text = "Valor da compra = R$ %.2f".format(total)
+        })
+
+
         carrinhoViewModel.carregarItensCarrinho()
 
         binding.finalizar.setOnClickListener {

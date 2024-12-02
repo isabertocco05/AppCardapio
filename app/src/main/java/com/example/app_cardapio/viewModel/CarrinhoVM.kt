@@ -11,6 +11,9 @@ class CarrinhoVM : ViewModel() {
     private val _itensCarrinho = MutableLiveData<List<Item>>()
     val itensCarrinho: LiveData<List<Item>> = _itensCarrinho
 
+    private val _totalCarrinho = MutableLiveData<Double>()
+    val totalCarrinho: LiveData<Double> = _totalCarrinho
+
     private val db = FirebaseFirestore.getInstance()
 
     fun carregarItensCarrinho() {
@@ -25,6 +28,7 @@ class CarrinhoVM : ViewModel() {
                     )
                 }
                 _itensCarrinho.value = itens
+                somarTotal(itens)
             }
             .addOnFailureListener {
                 _itensCarrinho.value = emptyList()
@@ -58,5 +62,10 @@ class CarrinhoVM : ViewModel() {
                 }
                 carregarItensCarrinho()
             }
+    }
+
+    private fun somarTotal(itens: List<Item>) {
+        val total = itens.sumOf { it.valor }
+        _totalCarrinho.value = total
     }
 }
