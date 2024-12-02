@@ -7,8 +7,17 @@ import com.bumptech.glide.Glide
 import com.example.app_cardapio.Models.Item
 import com.example.app_cardapio.databinding.CarrinhoViewBinding
 
-class CarrinhoAdapter(private val itens: List<Item>) :
-    RecyclerView.Adapter<CarrinhoAdapter.CarrinhoViewHolder>() {
+class CarrinhoAdapter(
+    private val onItemRemove: (Item) -> Unit
+) : RecyclerView.Adapter<CarrinhoAdapter.CarrinhoViewHolder>() {
+
+    private val itensCarrinho = mutableListOf<Item>()
+
+    fun setItensCarrinho(newItems: List<Item>) {
+        itensCarrinho.clear()
+        itensCarrinho.addAll(newItems)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarrinhoViewHolder {
         val binding = CarrinhoViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -16,13 +25,14 @@ class CarrinhoAdapter(private val itens: List<Item>) :
     }
 
     override fun onBindViewHolder(holder: CarrinhoViewHolder, position: Int) {
-        val item = itens[position]
+        val item = itensCarrinho[position]
         holder.bind(item)
+//        holder.binding.btnRemove.setOnClickListener { onItemRemove(item) }
     }
 
-    override fun getItemCount(): Int = itens.size
+    override fun getItemCount(): Int = itensCarrinho.size
 
-    class CarrinhoViewHolder(private val binding: CarrinhoViewBinding) :
+    class CarrinhoViewHolder(val binding: CarrinhoViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Item) {
