@@ -27,7 +27,7 @@ class CarrinhoAdapter(
     override fun onBindViewHolder(holder: CarrinhoViewHolder, position: Int) {
         val item = itensCarrinho[position]
         holder.bind(item)
-//        holder.binding.btnRemove.setOnClickListener { onItemRemove(item) }
+        holder.binding.delete.setOnClickListener { onItemRemove(item) }
     }
 
     override fun getItemCount(): Int = itensCarrinho.size

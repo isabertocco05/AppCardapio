@@ -23,7 +23,7 @@ class DetalhesItemView : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetalhesItemBinding
     private val carrinhoViewModel: CarrinhoVM by viewModels()
-    private val itemDetalhesVM: ItensVM by viewModels() // Usando o mesmo ViewModel
+    private val itemDetalhesVM: ItensVM by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

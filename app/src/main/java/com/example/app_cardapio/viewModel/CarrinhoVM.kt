@@ -4,68 +4,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.app_cardapio.Models.Item
+import com.example.app_cardapio.Models.Repository.CarrinhoRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CarrinhoVM : ViewModel() {
 
-    private val _itensCarrinho = MutableLiveData<List<Item>>()
-    val itensCarrinho: LiveData<List<Item>> = _itensCarrinho
+    private val carrinhoRepository = CarrinhoRepository()
+    val itensCarrinho: LiveData<List<Item>> = carrinhoRepository.itensCarrinho
+    val totalCarrinho: LiveData<Double> = carrinhoRepository.totalCarrinho
 
-    private val _totalCarrinho = MutableLiveData<Double>()
-    val totalCarrinho: LiveData<Double> = _totalCarrinho
-
-    private val db = FirebaseFirestore.getInstance()
+    init {
+        carregarItensCarrinho()
+    }
 
     fun carregarItensCarrinho() {
-        db.collection("carrinho")
-            .get()
-            .addOnSuccessListener { result ->
-                val itens = result.map { doc ->
-                    Item(
-                        nome = doc.getString("nome") ?: "",
-                        valor = doc.getDouble("valor") ?: 0.0,
-                        img_url = doc.getString("img_url") ?: ""
-                    )
-                }
-                _itensCarrinho.value = itens
-                somarTotal(itens)
-            }
-            .addOnFailureListener {
-                _itensCarrinho.value = emptyList()
-            }
+        carrinhoRepository.getItensCarrinho()
     }
 
     fun adicionarItemCarrinho(item: Item) {
-        db.collection("carrinho").add(item)
-            .addOnSuccessListener {
-                carregarItensCarrinho()
-            }
+        carrinhoRepository.adicionarItem(item)
     }
 
     fun removerItemCarrinho(item: Item) {
-        db.collection("carrinho")
-            .whereEqualTo("nome", item.nome)
-            .get()
-            .addOnSuccessListener { result ->
-                for (doc in result) {
-                    db.collection("carrinho").document(doc.id).delete()
-                }
-                carregarItensCarrinho()
-            }
+       carrinhoRepository.removerItem(item)
     }
 
     fun limparCarrinho() {
-        db.collection("carrinho").get()
-            .addOnSuccessListener { result ->
-                for (doc in result) {
-                    db.collection("carrinho").document(doc.id).delete()
-                }
-                carregarItensCarrinho()
-            }
+       carrinhoRepository.limparCarrinho()
     }
 
-    private fun somarTotal(itens: List<Item>) {
-        val total = itens.sumOf { it.valor }
-        _totalCarrinho.value = total
-    }
 }
