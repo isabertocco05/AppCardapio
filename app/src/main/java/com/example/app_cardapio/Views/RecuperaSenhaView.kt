@@ -1,35 +1,38 @@
 package com.example.app_cardapio.Views
 
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
-import android.widget.Button
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.example.app_cardapio.R
+import com.example.app_cardapio.databinding.ActivityRecuperaSenhaViewBinding
 
 class RecuperaSenhaView : ComponentActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var binding: ActivityRecuperaSenhaViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recupera_senha_view)
+        binding = ActivityRecuperaSenhaViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         auth = FirebaseAuth.getInstance()
 
-
-        val recEmail = findViewById<EditText>(R.id.recEmail)
-
-
-        val enviaLink = findViewById<Button>(R.id.alteraSenha)
-
-        // Enviar link de redefinição de senha
-        enviaLink.setOnClickListener {
-            val email = recEmail.text.toString()
+        // Usando o ViewBinding para acessar as views
+        binding.alteraSenha.setOnClickListener {
+            val email = binding.recEmail.text.toString()
 
             if (email.isNotEmpty()) {
-                // Enviar link para o e-mail informado
                 auth.sendPasswordResetEmail(email)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
