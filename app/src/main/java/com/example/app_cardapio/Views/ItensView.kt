@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityItensViewBinding
 import com.example.app_cardapio.navigateTo
+import com.example.app_cardapio.viewModel.CarrinhoVM
 import com.example.app_cardapio.viewModel.ItensVM
 
 class ItensView : AppCompatActivity() {
@@ -21,6 +22,8 @@ class ItensView : AppCompatActivity() {
     private lateinit var binding: ActivityItensViewBinding
     private lateinit var itemAdapter: ItensAdapter
     private val itemViewModel: ItensVM by viewModels()
+    private val carrinhoViewModel: CarrinhoVM by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,11 @@ class ItensView : AppCompatActivity() {
 
         binding.carrinho.setOnClickListener{
             navigateTo(this, CarrinhoView::class.java)
+        }
+
+        binding.logout.setOnClickListener{
+            carrinhoViewModel.limparCarrinho()
+            navigateTo(this, LoginView::class.java)
         }
 
         itemViewModel.itens.observe(this, Observer { itens ->

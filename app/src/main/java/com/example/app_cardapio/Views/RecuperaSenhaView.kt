@@ -20,8 +20,6 @@ class RecuperaSenhaView : ComponentActivity() {
 
 
         val recEmail = findViewById<EditText>(R.id.recEmail)
-        val recSenha = findViewById<EditText>(R.id.recSenha)
-        val recConfirm = findViewById<EditText>(R.id.recConfirm)
 
 
         val enviaLink = findViewById<Button>(R.id.alteraSenha)

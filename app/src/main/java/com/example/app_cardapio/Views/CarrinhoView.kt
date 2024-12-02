@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.app_cardapio.Models.Item
 import com.example.app_cardapio.databinding.ActivityCarrinhoViewBinding
+import com.example.app_cardapio.navigateTo
 import com.example.app_cardapio.viewModel.CarrinhoVM
 
 class CarrinhoView : AppCompatActivity() {
@@ -37,6 +38,11 @@ class CarrinhoView : AppCompatActivity() {
         binding.finalizar.setOnClickListener {
             carrinhoViewModel.limparCarrinho()
             Toast.makeText(this, "Compra finalizada com sucesso!", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.logout.setOnClickListener{
+            carrinhoViewModel.limparCarrinho()
+            navigateTo(this, LoginView::class.java)
         }
     }
 
