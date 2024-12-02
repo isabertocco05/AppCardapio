@@ -29,7 +29,7 @@ class LoginView : AppCompatActivity() {
         setContentView(binding.root)
 
         enableEdgeToEdge()
-        
+
         viewModel.isAuthenticated.observe(this, Observer { isAuthenticated ->
             if (isAuthenticated) {
                 Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()

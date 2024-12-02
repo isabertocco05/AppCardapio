@@ -61,7 +61,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addItem"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="95dp"
         android:layout_marginBottom="-21dp"
         android:text="Adicionar ao Carrinho"
         android:textSize="18sp"

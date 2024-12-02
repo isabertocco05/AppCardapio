@@ -11,6 +11,7 @@
         android:id="@+id/logout"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/ic_logout"
         android:background="@null"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Seus Itens"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,7 +54,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/finalizar"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="95dp"
         android:layout_marginBottom="-21dp"
         android:text="FINALIZAR COMPRA"
         android:textSize="18sp"
