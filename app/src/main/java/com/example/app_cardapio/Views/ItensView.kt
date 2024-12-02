@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityItensViewBinding
+import com.example.app_cardapio.navigateTo
 import com.example.app_cardapio.viewModel.ItensVM
 
 class ItensView : AppCompatActivity() {
@@ -40,6 +41,10 @@ class ItensView : AppCompatActivity() {
         binding.recyViewItens.apply {
             adapter = itemAdapter
             layoutManager = GridLayoutManager(this@ItensView, 2)
+        }
+
+        binding.carrinho.setOnClickListener{
+            navigateTo(this, CarrinhoView::class.java)
         }
 
         itemViewModel.itens.observe(this, Observer { itens ->

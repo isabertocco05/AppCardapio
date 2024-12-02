@@ -24,9 +24,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="47dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="47dp"
         android:hint="Email"
-        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo">
@@ -37,47 +37,17 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/RecuperaSeha"
-        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-        android:layout_width="0dp"
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginTop="30dp"
-        android:hint="Nova Senha"
-        app:passwordToggleEnabled="true"
+        android:layout_marginTop="10dp"
+        android:text="Verifique seu email para alteração de senha"
+        android:textColor="#8a8a8a"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RecuperaSehaEmail">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/recSenha"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/RecuperaSehaConfirma"
-        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginEnd="47dp"
-        android:layout_marginTop="30dp"
-        android:hint="Confirme Nova Senha"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RecuperaSeha">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/recConfirm"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/RecuperaSehaEmail" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/alteraSenha"
@@ -85,11 +55,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginTop="60dp"
         android:text="ALTERAR SENHA"
+        android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RecuperaSehaConfirma" />
+        app:layout_constraintTop_toBottomOf="@+id/text" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
