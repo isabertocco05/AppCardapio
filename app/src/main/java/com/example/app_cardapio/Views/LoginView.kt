@@ -10,15 +10,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.example.app_cardapio.R
 import com.example.app_cardapio.viewModel.LoginVM
 import com.example.app_cardapio.databinding.ActivityLoginViewBinding
 import com.example.app_cardapio.navigateTo
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginView : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginViewBinding
     private val viewModel: LoginVM by viewModels()
+    val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,19 +29,11 @@ class LoginView : AppCompatActivity() {
         setContentView(binding.root)
 
         enableEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
-
+        
         viewModel.isAuthenticated.observe(this, Observer { isAuthenticated ->
             if (isAuthenticated) {
                 Toast.makeText(this, "Login bem-sucedido!", Toast.LENGTH_SHORT).show()
                 navigateTo(this, CategoriasView::class.java)
-            } else {
-                Toast.makeText(this, "Login inválido! Verifique suas credenciais.", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -54,6 +49,20 @@ class LoginView : AppCompatActivity() {
         binding.cadastrar.setOnClickListener {
             navigateTo(this, CriarContaView::class.java)
         }
+
+        db.collection("app")
+            .document("img")
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val logoUrl = document.getString("logo")
+                    if (!logoUrl.isNullOrEmpty()) {
+                        Glide.with(this)
+                            .load(logoUrl)
+                            .into(binding.imgLogo)
+                    }
+                }
+            }
 
         binding.recSenha.setOnClickListener {
             navigateTo(this, RecuperaSenhaView::class.java)
