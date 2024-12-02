@@ -23,13 +23,12 @@ class CriarContaView : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCriarContaViewBinding.inflate(layoutInflater)
-        setContentView(binding.root) // Configuração correta do layout com ViewBinding
+        setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(CriarContaVM::class.java)
 
         enableEdgeToEdge()
 
-        // Ajuste de padding para systemBars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

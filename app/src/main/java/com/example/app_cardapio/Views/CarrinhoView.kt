@@ -2,11 +2,15 @@ package com.example.app_cardapio.Views
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.app_cardapio.Models.Item
+import com.example.app_cardapio.R
 import com.example.app_cardapio.databinding.ActivityCarrinhoViewBinding
 import com.example.app_cardapio.navigateTo
 import com.example.app_cardapio.viewModel.CarrinhoVM
@@ -22,6 +26,13 @@ class CarrinhoView : AppCompatActivity() {
 
         binding = ActivityCarrinhoViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         carrinhoAdapter = CarrinhoAdapter { item -> removerItemDoCarrinho(item) }
         binding.recyViewCarrinho.apply {

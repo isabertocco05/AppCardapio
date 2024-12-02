@@ -31,6 +31,13 @@ class ItensView : AppCompatActivity() {
         binding = ActivityItensViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
         val categoria = intent.getStringExtra("categoria") ?: return
         binding.titulo.text = categoria
 
