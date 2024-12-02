@@ -14,13 +14,13 @@ class DetalhesItemVM : ViewModel() {
 
     private val database: DatabaseReference = FirebaseDatabase.getInstance().reference
 
-    // Método para buscar os detalhes do item usando o nome
+
     fun getItemDetalhes(nomeItem: String) {
-        // Recupera os itens da coleção "itens" e verifica se o nome do item corresponde
+
         database.child("itens").orderByChild("nome").equalTo(nomeItem)
             .get().addOnSuccessListener { dataSnapshot ->
                 if (dataSnapshot.exists()) {
-                    // Pega o primeiro item encontrado
+
                     val item = dataSnapshot.children.first().getValue(Item::class.java)
                     if (item != null) {
                         _itemDetalhes.postValue(item)
@@ -28,7 +28,7 @@ class DetalhesItemVM : ViewModel() {
                 }
             }
             .addOnFailureListener {
-                // Tratar erro de recuperação de dados
+
             }
     }
 }

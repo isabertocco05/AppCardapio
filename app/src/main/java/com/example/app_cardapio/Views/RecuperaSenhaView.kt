@@ -28,7 +28,6 @@ class RecuperaSenhaView : ComponentActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        // Usando o ViewBinding para acessar as views
         binding.alteraSenha.setOnClickListener {
             val email = binding.recEmail.text.toString()
 

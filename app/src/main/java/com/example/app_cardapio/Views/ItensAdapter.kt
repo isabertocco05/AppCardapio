@@ -33,7 +33,6 @@ class ItensAdapter (
                 Glide.with(imgItem.context)
                     .load(item.img_url)
                     .centerCrop()
-//                    .placeholder(R.drawable.placeholder)
                     .into(imgItem)
 
                 root.setOnClickListener {

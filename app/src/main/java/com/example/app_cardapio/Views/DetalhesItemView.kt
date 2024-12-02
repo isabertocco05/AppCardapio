@@ -38,7 +38,7 @@ class DetalhesItemView : AppCompatActivity() {
         itemDetalhesVM.carregarDetalhes(categoria, nomeItem)
 
         itemDetalhesVM.itens.observe(this, Observer { itens ->
-            val itemDetalhado = itens.firstOrNull()  // Como esperamos um único item, pegamos o primeiro
+            val itemDetalhado = itens.firstOrNull()
             if (itemDetalhado != null) {
                 binding.nomeItem.text = itemDetalhado.nome
                 binding.descItem.text = itemDetalhado.descricao
